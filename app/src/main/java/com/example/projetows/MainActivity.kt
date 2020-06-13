@@ -1,10 +1,15 @@
 package com.example.projetows
 
+import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
@@ -19,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var btnListar: Button
     lateinit var nomeFilme: EditText
     lateinit var generoFilme: EditText
-    
+
     val URL = "http://192.168.0.100/projetos/webService/view/?op="
     val URL_ADD = URL + "insert"
 
@@ -34,6 +39,9 @@ class MainActivity : AppCompatActivity() {
 
         btnAdd.setOnClickListener() {
             addFilme()
+            hideKeyboard()
+            nomeFilme.setText("")
+            generoFilme.setText("")
         }
 
         btnListar.setOnClickListener() {
@@ -42,7 +50,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Metodo usado para adicionar registro digitado pelo usuario
-    // http://192.168.0.100/projetos/webService/view/?op=insert
     private fun addFilme() {
         val nome = nomeFilme?.text.toString()
         val genero = generoFilme?.text.toString()
@@ -78,6 +85,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun listarFilmes() {
 
+    }
+
+    private fun hideKeyboard() {
+        val imm: InputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (imm.isActive)
+            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
     }
 }
 
