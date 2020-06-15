@@ -2,6 +2,7 @@ package com.example.projetows
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var nomeFilme: EditText
     lateinit var generoFilme: EditText
 
-    val URL = "http://192.168.0.100/projetos/webService/view/?op="
+    val URL = "http://10.0.2.2/webService/view/?op="
     val URL_ADD = URL + "insert"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +46,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnListar.setOnClickListener() {
-            listarFilmes()
+
+            val intent = Intent(application, FilmeActivity::class.java)
+
+            startActivity(intent)
         }
     }
 
@@ -80,10 +84,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         VolleySingleton.instance?.addToRequestQueue(stringRequest)
-
-    }
-
-    private fun listarFilmes() {
 
     }
 
